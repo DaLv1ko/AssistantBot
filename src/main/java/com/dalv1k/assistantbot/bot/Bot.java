@@ -10,6 +10,7 @@ import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.EditMessageText;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
+import kong.unirest.Unirest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -26,6 +27,9 @@ public class Bot {
 
     @Value("${telegram.bot.chatId}")
     private long chatId;
+
+    @Value("${heroku.link}")
+    private String herokuLink;
 
     private static String chatIdStatic;
 
@@ -75,6 +79,11 @@ public class Bot {
     @Scheduled(fixedRate = 30 * 1000)
     private void binance() {
         binanceService.checkCurrencies();
+    }
+
+    @Scheduled(fixedRate = 60 *1000)
+    private void heroku(){
+        Unirest.get(herokuLink).asJson();
     }
 
     private boolean authorize(Update update) {
