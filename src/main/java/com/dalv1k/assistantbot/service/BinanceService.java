@@ -1,6 +1,6 @@
 package com.dalv1k.assistantbot.service;
 
-import com.dalv1k.assistantbot.Bot;
+import com.dalv1k.assistantbot.bot.Bot;
 import com.dalv1k.assistantbot.model.entity.Currency;
 import com.dalv1k.assistantbot.model.entity.TrackMessage;
 import com.dalv1k.assistantbot.model.repository.CurrencyRepository;
@@ -11,7 +11,6 @@ import kong.unirest.Unirest;
 import kong.unirest.json.JSONArray;
 import kong.unirest.json.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

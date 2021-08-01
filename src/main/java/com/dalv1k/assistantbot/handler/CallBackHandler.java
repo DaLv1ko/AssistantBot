@@ -1,6 +1,6 @@
 package com.dalv1k.assistantbot.handler;
 
-import com.dalv1k.assistantbot.Bot;
+import com.dalv1k.assistantbot.bot.Bot;
 import com.dalv1k.assistantbot.model.entity.Currency;
 import com.dalv1k.assistantbot.service.BinanceService;
 import com.dalv1k.assistantbot.service.MonobankService;

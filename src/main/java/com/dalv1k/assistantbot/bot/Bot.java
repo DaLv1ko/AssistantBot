@@ -1,4 +1,4 @@
-package com.dalv1k.assistantbot;
+package com.dalv1k.assistantbot.bot;
 
 import com.dalv1k.assistantbot.handler.UpdateHandler;
 import com.dalv1k.assistantbot.service.BinanceService;

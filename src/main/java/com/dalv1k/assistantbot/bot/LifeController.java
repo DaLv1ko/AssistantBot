@@ -1,12 +1,15 @@
-package com.dalv1k.assistantbot;
+package com.dalv1k.assistantbot.bot;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
 public class LifeController {
 
     @GetMapping
     public void live(){
+        log.info("I am alive");
     }
 }
