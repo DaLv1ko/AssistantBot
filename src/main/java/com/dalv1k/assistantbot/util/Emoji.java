@@ -8,4 +8,5 @@ public class Emoji {
     public static final String CARD_EMOJI = EmojiParser.parseToUnicode(":credit_card:");
     public static final String YES = EmojiParser.parseToUnicode(":white_check_mark:");
     public static final String NO = EmojiParser.parseToUnicode(":x:");
+    public static final String MAG = EmojiParser.parseToUnicode(":mag:");
 }

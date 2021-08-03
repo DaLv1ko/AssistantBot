@@ -58,8 +58,8 @@ public class Bot {
     }
 
 
-    public static void sendMessage(SendMessage baseRequest) {
-        bot.execute(baseRequest);
+    public static SendResponse sendMessage(SendMessage baseRequest) {
+       return bot.execute(baseRequest);
     }
 
     public static void deleteMessage(long id) {
@@ -77,12 +77,12 @@ public class Bot {
     }
 
     @Scheduled(fixedRate = 30 * 1000)
-    private void binance() {
+    private void binanceUpdate() {
         binanceService.checkCurrencies();
     }
 
     @Scheduled(fixedRate = 60 *1000)
-    private void heroku(){
+    private void herokuLive(){
         Unirest.get(herokuLink).asJson();
     }
 

@@ -80,9 +80,10 @@ public class BinanceService {
                     Math.abs(currency.getLastPrice() - update.getLastPrice()) >= currency.getMargin()) {
                 currency.setLastPrice(update.getLastPrice());
                 currencyRepository.save(currency);
-                TrackMessage trackMessage = new TrackMessage();
-                trackMessage.setMessageId(Bot.sendMessage("New " + currency.getName() + " price: " + currency.getLastPrice())
+                TrackMessage trackMessage = new TrackMessage(
+                        Bot.sendMessage("New " + currency.getName() + " price: " + currency.getLastPrice())
                         .message().messageId());
+
                 trackMessageRepository.save(trackMessage);
             }
         }));

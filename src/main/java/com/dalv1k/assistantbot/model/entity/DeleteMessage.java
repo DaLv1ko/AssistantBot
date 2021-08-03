@@ -9,9 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-@NoArgsConstructor
 @Data
-public class TrackMessage {
+@NoArgsConstructor
+public class DeleteMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,8 @@ public class TrackMessage {
 
     private long messageId;
 
-    public TrackMessage(long messageId){
-        this.messageId = messageId;
+    public DeleteMessage(long messageId){
+        this.messageId=messageId;
     }
+
 }

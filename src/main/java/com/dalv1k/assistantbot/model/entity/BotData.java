@@ -1,5 +1,6 @@
 package com.dalv1k.assistantbot.model.entity;
 
+import com.dalv1k.assistantbot.bot.BotState;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,18 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@Data
 @Entity
 @NoArgsConstructor
-@Data
-public class TrackMessage {
+public class BotData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long messageId;
+    private BotState botState;
 
-    public TrackMessage(long messageId){
-        this.messageId = messageId;
+    public BotData(BotState botState){
+        this.botState = botState;
     }
 }
