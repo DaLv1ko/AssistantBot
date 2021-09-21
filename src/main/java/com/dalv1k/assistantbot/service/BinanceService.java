@@ -39,10 +39,11 @@ public class BinanceService {
             JSONArray data = response.getBody().getArray();
             for (int i = 0; i < data.length(); i++) {
                 JSONObject currencyObj = data.getJSONObject(i);
-                if (currencyObj.getString("symbol").endsWith("BUSD")) {
+                if (currencyObj.getString("symbol").endsWith("USDT")) {
                     Currency currency = new Currency();
-                    currency.setName(currencyObj.getString("symbol").replace("BUSD", ""));
+                    currency.setName(currencyObj.getString("symbol").replace("USDT", ""));
                     currency.setLastPrice(currencyObj.getDouble("price"));
+                    currency.setMargin((float) (currency.getLastPrice() / 10));
                     currencies.add(currency);
                 }
             }
@@ -58,7 +59,7 @@ public class BinanceService {
         List<Currency> currencies = currencyRepository.findAllByOrderByIdAsc();
         if (currencies.isEmpty()) {
             currencies = getCurrencies();
-            currencies.forEach(currencyRepository::save);
+            currencyRepository.saveAll(currencies);
         }
         return currencies;
     }
@@ -82,7 +83,7 @@ public class BinanceService {
                 currencyRepository.save(currency);
                 TrackMessage trackMessage = new TrackMessage(
                         Bot.sendMessage("New " + currency.getName() + " price: " + currency.getLastPrice())
-                        .message().messageId());
+                                .message().messageId());
 
                 trackMessageRepository.save(trackMessage);
             }

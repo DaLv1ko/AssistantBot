@@ -5,7 +5,6 @@ import com.dalv1k.assistantbot.bot.BotState;
 import com.dalv1k.assistantbot.model.entity.BotData;
 import com.dalv1k.assistantbot.model.entity.Currency;
 import com.dalv1k.assistantbot.model.repository.BotDataRepository;
-import com.dalv1k.assistantbot.model.repository.DeleteMessageRepository;
 import com.dalv1k.assistantbot.service.BinanceService;
 import com.dalv1k.assistantbot.service.MonobankService;
 import com.pengrad.telegrambot.model.Update;
@@ -32,18 +31,14 @@ public class CallBackHandler {
     private final MonobankService monobankService;
     private final BinanceService binanceService;
     private final BotDataRepository botDataRepository;
-    private final DeleteMessageRepository deleteMessageRepository;
 
 
     public CallBackHandler(MonobankService monobankService, BinanceService binanceService,
-                           BotDataRepository botDataRepository, DeleteMessageRepository deleteMessageRepository) {
+                           BotDataRepository botDataRepository) {
         this.monobankService = monobankService;
         this.binanceService = binanceService;
         this.botDataRepository = botDataRepository;
-
-        this.deleteMessageRepository = deleteMessageRepository;
     }
-
 
     //TODO fix GAVNOKOD
     public void handle(Update update) {
@@ -99,6 +94,7 @@ public class CallBackHandler {
             } else if (data.equals("binance.track.back")) {
                 currentPage--;
             }
+            sortCoins();
             AtomicBoolean search = new AtomicBoolean(false);
             if (data.contains("binance.track.select.")) {
                 String currencyId = data.replace("binance.track.select.", "").replace("one.", "");
@@ -119,9 +115,8 @@ public class CallBackHandler {
                         }
                     }
                 });
-
+                sortCoins();
             }
-
             if (!search.get()) {
                 List<InlineKeyboardButton> row1 = new ArrayList<>();
                 List<InlineKeyboardButton> row2 = new ArrayList<>();
@@ -182,7 +177,11 @@ public class CallBackHandler {
         }
     }
 
-    public static void closeMenu(){
+    public static void closeMenu() {
         currentPage = 0;
+    }
+
+    private void sortCoins() {
+        currencies.sort((o1, o2) -> Boolean.compare(o2.isTracking(), o1.isTracking()));
     }
 }

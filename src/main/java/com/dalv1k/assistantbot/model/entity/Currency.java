@@ -21,6 +21,6 @@ public class Currency {
 
     private boolean tracking;
 
-    private int margin;
+    private float margin;
 
 }
