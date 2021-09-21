@@ -79,7 +79,6 @@ public class Bot {
 
     public static SendResponse sendMessage(String message) {
         SendMessage sendMessage = new SendMessage(chatIdStatic, message);
-        System.out.println(bot);
         return bot.execute(sendMessage);
     }
 
