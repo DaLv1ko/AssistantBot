@@ -31,11 +31,6 @@ public class Bot {
         sendMessage("I'm off " + SAD + " See you later...");
     }
 
-    @PostConstruct
-    private void postConstruct() {
-        sendMessage("I'm back buddy " + WINK);
-    }
-
     @Value("${telegram.bot.token}")
     private String botToken;
 
@@ -69,6 +64,7 @@ public class Bot {
             });
             return UpdatesListener.CONFIRMED_UPDATES_ALL;
         });
+        sendMessage("I'm back buddy " + WINK);
     }
 
 
@@ -83,6 +79,7 @@ public class Bot {
 
     public static SendResponse sendMessage(String message) {
         SendMessage sendMessage = new SendMessage(chatIdStatic, message);
+        System.out.println(bot);
         return bot.execute(sendMessage);
     }
 
