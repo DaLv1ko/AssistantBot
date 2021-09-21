@@ -17,10 +17,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
+import static com.dalv1k.assistantbot.util.Emoji.SAD;
+import static com.dalv1k.assistantbot.util.Emoji.WINK;
 
 @Service
 @Slf4j
 public class Bot {
+
+    @PreDestroy
+    private void preDestroy() {
+        sendMessage("I'm off " + SAD + " See you later...");
+    }
+
+    @PostConstruct
+    private void postConstruct() {
+        sendMessage("I'm back buddy " + WINK);
+    }
 
     @Value("${telegram.bot.token}")
     private String botToken;
@@ -59,7 +73,7 @@ public class Bot {
 
 
     public static SendResponse sendMessage(SendMessage baseRequest) {
-       return bot.execute(baseRequest);
+        return bot.execute(baseRequest);
     }
 
     public static void deleteMessage(long id) {
@@ -81,8 +95,8 @@ public class Bot {
         binanceService.checkCurrencies();
     }
 
-    @Scheduled(fixedRate = 60 *1000)
-    private void herokuLive(){
+    @Scheduled(fixedRate = 60 * 1000)
+    private void herokuLive() {
         Unirest.get(herokuLink).asJson();
     }
 
