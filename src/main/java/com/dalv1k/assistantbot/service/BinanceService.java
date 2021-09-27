@@ -17,8 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.dalv1k.assistantbot.util.Emoji.NO;
-import static com.dalv1k.assistantbot.util.Emoji.YES;
+import static com.dalv1k.assistantbot.util.Emoji.*;
 
 @Service
 @Slf4j
@@ -77,14 +76,20 @@ public class BinanceService {
         List<Currency> updates = getCurrencies();
         currencies.forEach(currency -> updates.forEach(update -> {
             if (currency.getName().equals(update.getName()) &&
-                    currency.getMargin() != 0 &&
                     Math.abs(currency.getLastPrice() - update.getLastPrice()) >= currency.getMargin()) {
+                TrackMessage trackMessage;
+                if (currency.getLastPrice() > update.getLastPrice()) {
+                    trackMessage = new TrackMessage(Bot
+                            .sendMessage(RED_SQUARE + " " + currency.getName() + " dropped to: " + update.getLastPrice())
+                            .message().messageId());
+                } else {
+                    trackMessage = new TrackMessage(Bot
+                            .sendMessage(GREEN_SQUARE + " " + currency.getName() + " grown to: " + update.getLastPrice())
+                            .message().messageId());
+                }
                 currency.setLastPrice(update.getLastPrice());
+                currency.setMargin(update.getMargin());
                 currencyRepository.save(currency);
-                TrackMessage trackMessage = new TrackMessage(
-                        Bot.sendMessage("New " + currency.getName() + " price: " + currency.getLastPrice())
-                                .message().messageId());
-
                 trackMessageRepository.save(trackMessage);
             }
         }));

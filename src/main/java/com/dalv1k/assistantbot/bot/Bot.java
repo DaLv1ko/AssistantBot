@@ -4,7 +4,6 @@ import com.dalv1k.assistantbot.handler.UpdateHandler;
 import com.dalv1k.assistantbot.service.BinanceService;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.UpdatesListener;
-import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.EditMessageText;
