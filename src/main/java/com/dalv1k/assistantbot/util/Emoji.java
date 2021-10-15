@@ -11,6 +11,8 @@ public class Emoji {
     public static final String MAG = EmojiParser.parseToUnicode(":mag:");
     public static final String SAD = EmojiParser.parseToUnicode(":pensive:");
     public static final String WINK = EmojiParser.parseToUnicode(":wink:");
+    public static final String TARGET = EmojiParser.parseToUnicode(":dart:");
+    public static final String MAX_PRICE = EmojiParser.parseToUnicode(":chart_with_upwards_trend:");
     public static final String RED_SQUARE = "\uD83D\uDFE5";
     public static final String GREEN_SQUARE = "\uD83D\uDFE9";
 }

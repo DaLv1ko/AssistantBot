@@ -43,23 +43,20 @@ public class BinanceService {
                     currency.setName(currencyObj.getString("symbol").replace("USDT", ""));
                     currency.setLastPrice(currencyObj.getDouble("price"));
                     currency.setMargin((float) (currency.getLastPrice() / 10));
+
                     currencies.add(currency);
                 }
             }
             return currencies;
         } else {
-            Bot.sendMessage("Error in response from Binance: "
-                    .concat(response.getBody().toString()));
+            Bot.sendMessage("Error in response from Binance: ".concat(response.getBody().toString()));
         }
         return Collections.emptyList();
     }
 
     public List<Currency> getAll() {
         List<Currency> currencies = currencyRepository.findAllByOrderByIdAsc();
-        if (currencies.isEmpty()) {
-            currencies = getCurrencies();
-            currencyRepository.saveAll(currencies);
-        }
+        if (currencies.isEmpty()) currencyRepository.saveAll(getCurrencies());
         return currencies;
     }
 
@@ -80,12 +77,19 @@ public class BinanceService {
                 TrackMessage trackMessage;
                 if (currency.getLastPrice() > update.getLastPrice()) {
                     trackMessage = new TrackMessage(Bot
-                            .sendMessage(RED_SQUARE + " " + currency.getName() + " dropped to: " + update.getLastPrice())
+                            .sendMessage(RED_SQUARE + " " + currency.getName() + " dropped to: " + update.getLastPrice()
+                                    + "\n" + MAX_PRICE + " Max price: " + currency.getMaxPrice()
+                                    + "\n" + TARGET + "Target price: " + currency.getTargetPrice())
                             .message().messageId());
                 } else {
                     trackMessage = new TrackMessage(Bot
-                            .sendMessage(GREEN_SQUARE + " " + currency.getName() + " grown to: " + update.getLastPrice())
+                            .sendMessage(GREEN_SQUARE + " " + currency.getName() + " grown to: " + update.getLastPrice()
+                                    + "\n" + MAX_PRICE + " Max price: " + currency.getMaxPrice()
+                                    + "\n" + TARGET + "Target price: " + currency.getTargetPrice())
                             .message().messageId());
+                }
+                if (currency.getMaxPrice() < update.getLastPrice()) {
+                    currency.setMaxPrice(update.getLastPrice());
                 }
                 currency.setLastPrice(update.getLastPrice());
                 currency.setMargin(update.getMargin());

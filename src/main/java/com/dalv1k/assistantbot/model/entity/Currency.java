@@ -23,4 +23,8 @@ public class Currency {
 
     private float margin;
 
+    private double maxPrice;
+
+    private double targetPrice;
+
 }
