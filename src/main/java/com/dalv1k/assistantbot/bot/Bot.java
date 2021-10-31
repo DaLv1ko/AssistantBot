@@ -85,7 +85,7 @@ public class Bot {
         bot.execute(editMessageText);
     }
 
-    @Scheduled(fixedRate = 30 * 1000)
+    @Scheduled(fixedRate = 60 * 1000)
     private void binanceUpdate() {
         binanceService.checkCurrencies();
     }
