@@ -42,7 +42,7 @@ public class BinanceService {
                     Currency currency = new Currency();
                     currency.setName(currencyObj.getString("symbol").replace("USDT", ""));
                     currency.setLastPrice(currencyObj.getDouble("price"));
-                    currency.setMargin((float) (currency.getLastPrice() / 10));
+                    currency.setMargin((float) (currency.getLastPrice() / 20));
 
                     currencies.add(currency);
                 }
